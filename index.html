@@ -60,8 +60,6 @@ body{font-family:var(--font);background:var(--light-gray);color:#1a2530;min-heig
 .btn-danger{background:var(--danger-light);color:var(--danger)}
 .btn-reclass{background:#e8f6f8;color:var(--teal);border:1px solid var(--teal)}
 .btn-reclass:hover{background:var(--teal);color:#fff}
-.btn-replicate{background:#eaf2f8;color:#1a5276;border:1px solid #7fb3d3}
-.btn-replicate:hover{background:#1a5276;color:#fff}
 .btn-sm{padding:5px 12px;font-size:12px}
 .btn-export{background:#003049;color:#fff}
 .filter-select{border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;font-family:var(--font);font-size:12px;color:var(--navy);outline:none;transition:border-color .2s}
@@ -183,10 +181,7 @@ window.addEventListener('DOMContentLoaded',function(){
       <select id="dashYear" onchange="renderDashboard()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option><option value="2025">2025</option></select>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-export" onclick="exportCSV()" title="Exportar tabla a CSV">📊 CSV</button>
-        <button class="btn" style="background:#1a5276;color:#fff" onclick="exportJSON()" title="Guardar respaldo completo">💾 Guardar estado</button>
-        <button class="btn" style="background:#145a32;color:#fff" onclick="importJSON()" title="Cargar respaldo guardado">📂 Cargar estado</button>
-        <button class="btn" style="background:#6c3483;color:#fff" onclick="downloadHTML()" title="Descarga el HTML con todos tus datos adentro">⬇ Descargar HTML</button>
-        <input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="loadJSONFile(event)">
+        <button class="btn" style="background:#6c3483;color:#fff" onclick="downloadHTML()" title="Descarga el HTML actualizado">⬇ Descargar HTML</button>
       </div>
     </div>
   </div>
@@ -952,48 +947,93 @@ function filterByIngreso(ref){
   // future: filter eventuales by ingresoRef
 }
 
-const DATA_VERSION = '3.1'; // bump this when INITIAL_DATA changes
+// ── GitHub Storage Config ──
+const GH_TOKEN = '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';
+const GH_REPO  = 'MizraAlcazar/procesia-finanzas';
+const GH_FILE  = 'data.json';
+const GH_API   = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
+const DATA_VERSION = '3.1';
 
-function loadData() {
+let ghSha = null;      // SHA del archivo en GitHub (necesario para actualizarlo)
+let saveTimer = null;  // debounce para no saturar la API
+
+// Carga datos desde GitHub; fallback a INITIAL_DATA si falla
+async function loadData() {
+  showSyncStatus('⏳ Cargando datos...');
   try {
-    const s = localStorage.getItem('procesia_v2');
-    const storedVersion = localStorage.getItem('procesia_version');
-    if(s) {
-      data = JSON.parse(s);
-      // Si la versión cambió, fusionar registros nuevos de INITIAL_DATA
-      if(storedVersion !== DATA_VERSION) {
+    const res = await fetch(GH_API, {
+      headers: { Authorization: `token ${GH_TOKEN}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if(res.ok) {
+      const json = await res.json();
+      ghSha = json.sha;
+      const decoded = JSON.parse(atob(json.content.replace(/\n/g,'')));
+      // Si el archivo en GitHub está vacío, arrancar con INITIAL_DATA
+      if(!decoded.ingresos?.length && !decoded.fijos?.length) {
+        data = JSON.parse(JSON.stringify(INITIAL_DATA));
+        await saveData();
+      } else {
+        data = decoded;
+        // Fusionar registros nuevos de INITIAL_DATA que no estén en GitHub
+        let merged = false;
         ['ingresos','fijos','eventuales','anticipos'].forEach(type => {
-          const storedIds = new Set(data[type].map(r => r.id));
-          const newRecords = INITIAL_DATA[type].filter(r => !storedIds.has(r.id));
-          if(newRecords.length) {
-            data[type] = data[type].concat(newRecords);
-            console.log(`Merged ${newRecords.length} new ${type} records`);
-          }
-          // También actualizar campos de registros existentes si cambiaron
+          const storedIds = new Set(data[type].map(r=>r.id));
+          const newRecs = INITIAL_DATA[type].filter(r=>!storedIds.has(r.id));
+          if(newRecs.length) { data[type] = data[type].concat(newRecs); merged=true; }
           INITIAL_DATA[type].forEach(initRec => {
-            const idx = data[type].findIndex(r => r.id === initRec.id);
-            if(idx !== -1) {
-              // Fusionar campos nuevos sin sobreescribir ediciones del usuario
-              Object.keys(initRec).forEach(key => {
-                if(data[type][idx][key] === undefined || data[type][idx][key] === '') {
-                  data[type][idx][key] = initRec[key];
-                }
-              });
-            }
+            const idx = data[type].findIndex(r=>r.id===initRec.id);
+            if(idx!==-1) Object.keys(initRec).forEach(k => {
+              if(data[type][idx][k]===undefined||data[type][idx][k]==='') data[type][idx][k]=initRec[k];
+            });
           });
         });
-        saveData();
-        localStorage.setItem('procesia_version', DATA_VERSION);
+        if(merged) await saveData();
       }
+      showSyncStatus('✅ Sincronizado', 2000);
       return;
     }
-  } catch(e){ console.error('loadData error:', e); }
-  // Primera carga: usar datos históricos iniciales
+  } catch(e) { console.error('GitHub load error:', e); }
+  // Fallback
   data = JSON.parse(JSON.stringify(INITIAL_DATA));
-  saveData();
-  localStorage.setItem('procesia_version', DATA_VERSION);
+  showSyncStatus('⚠️ Sin conexión — datos locales', 3000);
 }
-function saveData() { localStorage.setItem('procesia_v2', JSON.stringify(data)); }
+
+// Guarda datos en GitHub (con debounce de 1.5s para agrupar cambios rápidos)
+function saveData() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => _saveToGitHub(), 1500);
+}
+
+async function _saveToGitHub() {
+  showSyncStatus('💾 Guardando...');
+  try {
+    const body = { message: `Actualización ${new Date().toLocaleString('es-MX')}`, content: btoa(unescape(encodeURIComponent(JSON.stringify(data)))) };
+    if(ghSha) body.sha = ghSha;
+    const res = await fetch(GH_API, {
+      method: 'PUT',
+      headers: { Authorization: `token ${GH_TOKEN}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if(res.ok) {
+      const json = await res.json();
+      ghSha = json.content.sha;
+      showSyncStatus('✅ Guardado en GitHub', 2000);
+    } else {
+      showSyncStatus('❌ Error al guardar', 3000);
+      console.error('GitHub save error:', await res.text());
+    }
+  } catch(e) {
+    showSyncStatus('❌ Sin conexión', 3000);
+    console.error('GitHub save error:', e);
+  }
+}
+
+function showSyncStatus(msg, clearAfter=0) {
+  let el = document.getElementById('syncStatus');
+  if(!el) return;
+  el.textContent = msg;
+  if(clearAfter) setTimeout(()=>{ el.textContent=''; }, clearAfter);
+}
 function genId() { return Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
 function genFolio(){
   const existing=data.ingresos.map(r=>r.folio).filter(Boolean);
@@ -1158,9 +1198,7 @@ function badgeQuien(q){const labels={mizra:'👤 Solo Mizra',gus:'👤 Solo Gus'
 function actionBtns(type,id){
   const reclass = (type==='fijos'||type==='eventuales')
     ? ` <button class="btn btn-sm btn-reclass tooltip" data-tip="${type==='fijos'?'Mover a Eventuales':'Mover a Fijos'}" onclick="reclassify('${type}','${id}')">↔</button>` : '';
-  const replicate = type==='fijos'
-    ? ` <button class="btn btn-sm btn-replicate tooltip" data-tip="Replicar al mes siguiente" onclick="replicateFijo('${id}')">⟳</button>` : '';
-  return `<button class="btn btn-sm btn-secondary" onclick="editRecord('${type}','${id}')">✏️</button>${reclass}${replicate} <button class="btn btn-sm btn-danger" onclick="deleteRecord('${type}','${id}')">🗑</button>`;
+  return `<button class="btn btn-sm btn-secondary" onclick="editRecord('${type}','${id}')">✏️</button>${reclass} <button class="btn btn-sm btn-danger" onclick="deleteRecord('${type}','${id}')">🗑</button>`;
 }
 function emptyRow(cols,icon,msg){return `<tr><td colspan="${cols}" class="empty-table"><div style="font-size:36px;margin-bottom:8px">${icon}</div>${msg}</td></tr>`;}
 
@@ -1257,52 +1295,6 @@ function renderAnticipos(){
 }
 
 // ══ DELETE / EDIT ══
-function replicateFijo(id){
-  const r = data.fijos.find(x=>x.id===id);
-  if(!r) return;
-
-  // Calculate next month from periodo or fecha
-  const base = r.periodo || r.fecha?.slice(0,7) || '';
-  if(!base){ notify('❌ El registro no tiene período definido','error'); return; }
-
-  const [y, m] = base.split('-').map(Number);
-  const nextDate = new Date(y, m, 1); // primer día del mes siguiente
-  const nextY = nextDate.getFullYear();
-  const nextM = String(nextDate.getMonth()+1).padStart(2,'0');
-  const nextPeriodo = `${nextY}-${nextM}`;
-  const nextFecha   = `${nextY}-${nextM}-${String(r.fecha?.slice(8,10)||'01').padStart(2,'0')}`;
-
-  // Check if a copy already exists for that period
-  const exists = data.fijos.some(x =>
-    x.proveedor === r.proveedor && x.periodo === nextPeriodo && x.id !== r.id
-  );
-  if(exists){
-    if(!confirm(`Ya existe un registro de "${r.proveedor}" en ${fmtP(nextPeriodo)}. ¿Crear otro igual?`)) return;
-  }
-
-  // Calculate proximoPago one more month ahead
-  const proxDate = new Date(nextY, nextDate.getMonth()+1, 1);
-  const proxY = proxDate.getFullYear();
-  const proxM = String(proxDate.getMonth()+1).padStart(2,'0');
-  const proxDia = String(r.fecha?.slice(8,10)||'01').padStart(2,'0');
-  const nextProxPago = `${proxY}-${proxM}-${proxDia}`;
-
-  const copy = {
-    ...r,
-    id: genId(),
-    fecha: nextFecha,
-    periodo: nextPeriodo,
-    proximoPago: nextProxPago,
-    estatus: 'Pendiente'   // siempre arranca como pendiente
-  };
-
-  data.fijos.push(copy);
-  saveData();
-  populateFilters();
-  renderFijos();
-  notify(`⟳ Replicado: ${r.proveedor} · ${fmtP(nextPeriodo)} — estatus: Pendiente`);
-}
-
 function reclassify(type,id){
   const src = type==='fijos' ? data.fijos : data.eventuales;
   const dst = type==='fijos' ? data.eventuales : data.fijos;
@@ -1704,7 +1696,7 @@ function exportCSV(){
 }
 
 // ══ INIT ══
-function init(){
+async function init(){
   document.getElementById('headerLogo').src='data:image/png;base64,'+LOGO_B64;
   const today=new Date().toISOString().slice(0,10);
   const ingFolioEl=document.getElementById('ing_folio'); if(ingFolioEl) ingFolioEl.value=genFolio();
@@ -1712,7 +1704,7 @@ function init(){
   ['ing_fecha','fij_fecha','eve_fecha','ant_fecha'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=today;});
   ['ing_periodo','fij_periodo','eve_periodo','ant_periodo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=todayM;});
   document.getElementById('pl_month').value=String(new Date().getMonth()+1).padStart(2,'0');
-  loadData();
+  await loadData();
   populateFilters();
   renderDashboard();
   selectQuien('mizra');
