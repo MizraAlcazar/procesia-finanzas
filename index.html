@@ -178,6 +178,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
       <select id="dashYear" onchange="renderDashboard()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option><option value="2025">2025</option></select>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-export" onclick="exportCSV()" title="Exportar tabla a CSV">📊 CSV</button>
+        <button class="btn" style="background:#6c3483;color:#fff" onclick="downloadCleanHTML()">⬇ Descargar HTML</button>
         
       </div>
     </div>
@@ -1667,6 +1668,18 @@ function renderPL(){
 
 
 
+
+function downloadCleanHTML(){
+  const ts = new Date().toISOString().slice(0,10);
+  // Clone current HTML without any injected data scripts
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Procesia_Finanzas_${ts}.html`;
+  a.click();
+  notify('⬇ HTML descargado — los datos siguen en GitHub');
+}
 
 function exportCSV(){
   const ts=new Date().toISOString().slice(0,10);
