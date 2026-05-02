@@ -968,7 +968,7 @@ async function loadData(){
     const r=await fetch(GH_API,{headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json'}});
     if(r.ok){
       const j=await r.json(); ghSha=j.sha;
-      const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(j.content.replace(/\n/g,'')),c=>c.charCodeAt(0))));
+      const raw=atob(j.content.replace(/\n/g,'')); const d=JSON.parse(decodeURIComponent(escape(raw)));
       if(!d.ingresos?.length&&!d.fijos?.length){
         data=JSON.parse(JSON.stringify(INITIAL_DATA)); await _ghSave();
       } else {
@@ -1004,7 +1004,7 @@ async function _ghSave(){
   const tok=getToken(); if(!tok) return;
   showSync('💾 Guardando...');
   try{
-    const body={message:`update ${new Date().toISOString()}`,content:btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(data))))};
+    const body={message:`update ${new Date().toISOString()}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(data))))};
     if(ghSha) body.sha=ghSha;
     const r=await fetch(GH_API,{method:'PUT',headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(r.ok){ const j=await r.json(); ghSha=j.content.sha; showSync('✅ Guardado',2500); }
@@ -1220,8 +1220,15 @@ function renderFijos(){
       const proxDate=r.proximoPago?new Date(r.proximoPago):null;
       const today=new Date(); today.setHours(0,0,0,0);
       const daysLeft=proxDate?Math.ceil((proxDate-today)/(1000*60*60*24)):null;
-      const proxStyle=daysLeft!==null?(daysLeft<=0?'color:var(--danger);font-weight:700':daysLeft<=7?'color:var(--warning);font-weight:700':'color:var(--gray)'):'color:var(--gray)';
-      const proxText=r.proximoPago?(daysLeft<=0?`⚠️ ${fmtDate(r.proximoPago)}`:daysLeft<=7?`🔔 ${fmtDate(r.proximoPago)}`:fmtDate(r.proximoPago)):'—';
+      let proxStyle, proxText;
+      if(r.estatus==='Pagado'){
+        proxStyle='color:var(--success);font-weight:700';
+        proxText=r.proximoPago?`✅ ${fmtDate(r.proximoPago)}`:'✅ Pagado';
+      } else if(daysLeft!==null){
+        if(daysLeft<=3){proxStyle='color:var(--danger);font-weight:700'; proxText=`🔴 ${fmtDate(r.proximoPago)}`;}
+        else if(daysLeft<=10){proxStyle='color:var(--warning);font-weight:700'; proxText=`🟡 ${fmtDate(r.proximoPago)}`;}
+        else{proxStyle='color:var(--gray)'; proxText=fmtDate(r.proximoPago);}
+      } else {proxStyle='color:var(--gray)'; proxText='—';}
       const ref=r.ingresoRef?`<span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('${r.ingresoRef}')">${r.ingresoRef}</span>`:'<span style="color:var(--gray);font-size:11px">—</span>';
       return `<tr><td>${fmtDate(r.fecha)}</td><td>${r.proveedor}</td><td>${r.categoria||'—'}</td>
         <td>${freq?`<span class="freq-badge freq-${freqCls}">${freq}</span>`:'—'}</td>
