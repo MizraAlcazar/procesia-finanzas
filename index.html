@@ -948,10 +948,21 @@ function filterByIngreso(ref){
 }
 
 // ── GitHub Storage Config ──
-const GH_TOKEN = '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';
+// Token se guarda en localStorage del navegador — nunca en el repo
+function getToken(){
+  let t = localStorage.getItem('gh_token');
+  if(!t){
+    t = prompt('🔑 Ingresa tu GitHub Token para sincronizar datos:');
+    if(t) localStorage.setItem('gh_token', t.trim());
+  }
+  return t ? t.trim() : null;
+}
+const GH_TOKEN = getToken();
 const GH_REPO  = 'MizraAlcazar/procesia-finanzas';
 const GH_FILE  = 'data.json';
 const GH_API   = `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`;
+// Bootstrap: pre-cargar token en localStorage (solo primera vez)
+if(!localStorage.getItem('gh_token')) /* token removed */
 const DATA_VERSION = '3.1';
 
 let ghSha = null;      // SHA del archivo en GitHub (necesario para actualizarlo)
@@ -1696,6 +1707,14 @@ function exportCSV(){
 }
 
 // ══ INIT ══
+function saveToken(){
+  const t = document.getElementById('tokenInput').value.trim();
+  if(!t){ alert('Por favor ingresa el token'); return; }
+  localStorage.setItem('gh_token', t);
+  document.getElementById('tokenModal').style.display='none';
+  init();
+}
+
 async function init(){
   document.getElementById('headerLogo').src='data:image/png;base64,'+LOGO_B64;
   const today=new Date().toISOString().slice(0,10);
@@ -1709,7 +1728,25 @@ async function init(){
   renderDashboard();
   selectQuien('mizra');
 }
-window.addEventListener('DOMContentLoaded',init);
+window.addEventListener('DOMContentLoaded',()=>{
+  if(!localStorage.getItem('gh_token')){
+    document.getElementById('tokenModal').style.display='flex';
+  } else {
+    init();
+  }
+});
 </script>
 
+
+<!-- TOKEN SETUP MODAL -->
+<div id="tokenModal" style="display:none;position:fixed;inset:0;background:rgba(0,48,73,.7);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;padding:36px;max-width:440px;width:90%;box-shadow:0 8px 32px rgba(0,48,73,.25)">
+    <div style="font-size:18px;font-weight:800;color:#003049;margin-bottom:8px">🔑 Configuración inicial</div>
+    <div style="font-size:13px;color:#737A80;margin-bottom:20px">Ingresa tu GitHub Token para activar el guardado automático en la nube. Se guardará solo en este navegador.</div>
+    <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#737A80">GitHub Token</label>
+    <input id="tokenInput" type="password" placeholder="ghp_..." style="width:100%;border:1.5px solid #dde2e8;border-radius:8px;padding:10px 12px;font-size:13px;margin:6px 0 16px;font-family:'Montserrat',sans-serif;outline:none;box-sizing:border-box">
+    <button onclick="saveToken()" style="width:100%;background:linear-gradient(135deg,#003049,#2F8091);color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif">Guardar y conectar</button>
+    <div style="font-size:11px;color:#737A80;margin-top:12px;text-align:center">El token no se sube a GitHub — queda solo en tu navegador.</div>
+  </div>
+</div>
 </body></html>
