@@ -1222,7 +1222,7 @@ function renderFijos(){
       const daysLeft=proxDate?Math.ceil((proxDate-today)/(1000*60*60*24)):null;
       let proxStyle, proxText;
       if(r.estatus==='Pagado'){
-        proxStyle='color:var(--success);font-weight:700';
+        proxStyle=r.proximoPago?'color:var(--success);font-weight:700':'color:var(--gray)';
         proxText=r.proximoPago?`✅ ${fmtDate(r.proximoPago)}`:'—';
       } else if(daysLeft!==null){
         if(daysLeft<=3){proxStyle='color:var(--danger);font-weight:700'; proxText=`🔴 ${fmtDate(r.proximoPago)}`;}
