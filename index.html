@@ -175,7 +175,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
   <div class="section-header" style="margin-bottom:18px">
     <div style="font-size:20px;font-weight:800;color:var(--navy)">Resumen General</div>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <select id="dashYear" onchange="renderDashboard()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option><option value="2025">2025</option></select>
+      <select id="dashYear" onchange="renderDashboard()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option></select>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-export" onclick="exportCSV()" title="Exportar tabla a CSV">📊 CSV</button>
         <button class="btn" style="background:#6c3483;color:#fff" onclick="downloadCleanHTML()">⬇ Descargar HTML</button>
@@ -193,35 +193,28 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="kpi-card expense" style="animation-delay:0.05s">
       <span class="kpi-icon">📤</span>
       <div class="kpi-label">Egresos 2026</div>
-      <div class="kpi-value positive">$14,300.00</div>
-      <div class="kpi-sub">Fijos $14,300.00 · Even. $0.00</div>
+      <div class="kpi-value positive">$0.00</div>
+      <div class="kpi-sub">Fijos $0.00 · Even. $0.00</div>
     </div>
     <div class="kpi-card profit" style="animation-delay:0.1s">
       <span class="kpi-icon">📊</span>
       <div class="kpi-label">Utilidad Neta</div>
-      <div class="kpi-value negative">$-14,300.00</div>
+      <div class="kpi-value positive">$0.00</div>
       <div class="kpi-sub">Margen 0%</div>
     </div>
     <div class="kpi-card partner-miz" style="animation-delay:0.15000000000000002s">
       <span class="kpi-icon">👤</span>
       <div class="kpi-label">Saldo Mizra</div>
-      <div class="kpi-value negative">$-7,150.00</div>
+      <div class="kpi-value positive">$0.00</div>
       <div class="kpi-sub">50% menos anticipos</div>
     </div>
     <div class="kpi-card partner-gus" style="animation-delay:0.2s">
       <span class="kpi-icon">👤</span>
       <div class="kpi-label">Saldo Gus</div>
-      <div class="kpi-value negative">$-7,150.00</div>
+      <div class="kpi-value positive">$0.00</div>
       <div class="kpi-sub">50% menos anticipos</div>
     </div></div>
-  <div id="alertsPanel"><div style="margin-bottom:6px;font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.8px">🔔 Alertas de Pagos (1)</div><div class="alert-banner info">
-      <div class="alert-icon">📅</div>
-      <div style="flex:1">
-        <div class="alert-title">Próximo pago en 11 días: Contador</div>
-        <div class="alert-sub">Vence el 05/05/2026 · $3,000.00 · Mensual</div>
-      </div>
-      <button class="btn btn-sm btn-secondary" onclick="switchTab('fijos')" style="white-space:nowrap">Ver pago</button>
-    </div></div>
+  <div id="alertsPanel"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px">
     <div class="section-card">
       <div class="section-title" style="margin-bottom:14px">Ingresos vs Egresos</div>
@@ -230,25 +223,25 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
         <div class="legend-item"><div class="legend-dot" style="background:var(--danger)"></div>Egresos</div>
       </div>
       <div class="bar-chart" id="dashBarChart">
-    <div class="bar-group" title="Ene: $0.00 / $3,000.00">
+    <div class="bar-group" title="Ene: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
-      <div class="bar bar-expense" style="height:48px"></div>
+      <div class="bar bar-expense" style="height:2px"></div>
     </div>
-    <div class="bar-group" title="Feb: $0.00 / $3,000.00">
+    <div class="bar-group" title="Feb: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
-      <div class="bar bar-expense" style="height:48px"></div>
+      <div class="bar bar-expense" style="height:2px"></div>
     </div>
-    <div class="bar-group" title="Mar: $0.00 / $3,000.00">
+    <div class="bar-group" title="Mar: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
-      <div class="bar bar-expense" style="height:48px"></div>
+      <div class="bar bar-expense" style="height:2px"></div>
     </div>
     <div class="bar-group" title="Abr: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
       <div class="bar bar-expense" style="height:2px"></div>
     </div>
-    <div class="bar-group" title="May: $0.00 / $5,300.00">
+    <div class="bar-group" title="May: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
-      <div class="bar bar-expense" style="height:85px"></div>
+      <div class="bar bar-expense" style="height:2px"></div>
     </div>
     <div class="bar-group" title="Jun: $0.00 / $0.00">
       <div class="bar bar-income" style="height:2px"></div>
@@ -282,15 +275,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
     <div class="section-card">
       <div class="section-title" style="margin-bottom:14px">Desglose de Egresos</div>
-      <div id="expenseBreakdown">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:3px;background:#003049"></div><span style="font-size:12px">Honorarios</span></div>
-        <span style="font-size:12px;font-weight:700;color:var(--danger)">$9,000.00</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
-        <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:3px;background:#2F8091"></div><span style="font-size:12px">Suscripciones</span></div>
-        <span style="font-size:12px;font-weight:700;color:var(--danger)">$5,300.00</span>
-      </div></div>
+      <div id="expenseBreakdown"><div style="text-align:center;color:var(--gray);padding:24px;font-size:13px">Sin egresos este año</div></div>
     </div>
   </div>
 </div>
@@ -319,7 +304,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="section-header">
       <div class="section-title">Historial de Ingresos</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <select id="ing_fp" onchange="renderIngresos()" class="filter-select"><option value="">Todos los períodos</option><option value="2026-05">May 2026</option><option value="2026-04">Abr 2026</option><option value="2026-03">Mar 2026</option><option value="2026-02">Feb 2026</option><option value="2026-01">Ene 2026</option><option value="2025-12">Dic 2025</option><option value="2025-11">Nov 2025</option><option value="2025-10">Oct 2025</option><option value="2025-09">Sep 2025</option><option value="2025-08">Ago 2025</option><option value="2025-07">Jul 2025</option><option value="2025-06">Jun 2025</option><option value="2025-05">May 2025</option></select>
+        <select id="ing_fp" onchange="renderIngresos()" class="filter-select"><option value="">Todos los períodos</option></select>
         <select id="ing_fe" onchange="renderIngresos()" class="filter-select">
           <option value="">Todos los estatus</option><option>Cobrado</option><option>Pendiente</option><option>Cancelado</option></select>
       </div>
@@ -333,11 +318,11 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Folio</th><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Período</th><th>Forma</th><th>Estatus</th><th style="text-align:right">Monto</th><th></th></tr></thead>
-      <tbody id="ingresosBody"><tr><td><span class="folio-badge">ING-008</span></td><td>01/09/2025</td><td>L4BC</td><td>Complemento + bolsa L4BC</td><td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$14,500.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h008')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h008')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-009</span></td><td>01/09/2025</td><td>Nocaas</td><td>Consultoría Nocaas</td><td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$11,600.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h009')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h009')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-010</span></td><td>01/09/2025</td><td>Eslabón</td><td>Pago 2 certificado eslabón</td><td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$107,300.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h010')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h010')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-005</span></td><td>01/08/2025</td><td>ESSA</td><td>Honorarios consultoría ESSA</td><td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$78,200.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h005')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h005')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-006</span></td><td>01/08/2025</td><td>Cliente</td><td>CFDI</td><td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$32,500.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h006')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h006')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-007</span></td><td>01/08/2025</td><td>L4BC</td><td>Anticipo consultoría L4BC</td><td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$8,700.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h007')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h007')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-003</span></td><td>01/07/2025</td><td>Dicipa</td><td>Certificado Dicipa</td><td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$464,000.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h003')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h003')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-004</span></td><td>01/07/2025</td><td>Biosidt</td><td>Certificado Biosidt</td><td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$464,000.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h004')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h004')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-002</span></td><td>01/06/2025</td><td>Cliente</td><td>Anticipo implementación ISO 27001</td><td>Jun 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$214,600.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h002')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h002')">🗑</button></td></tr><tr><td><span class="folio-badge">ING-001</span></td><td>01/05/2025</td><td>Eslabón</td><td>Certificado eslabón</td><td>May 2025</td><td>Transferencia</td><td><span class="badge badge-cobrado">Cobrado</span></td><td class="amount-positive" style="text-align:right">$475,600.00</td><td><button class="btn btn-sm btn-secondary" onclick="editRecord('ingresos','h001')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('ingresos','h001')">🗑</button></td></tr></tbody>
+      <tbody id="ingresosBody"><tr><td colspan="8" class="empty-table"><div style="font-size:36px;margin-bottom:8px">💰</div>Sin ingresos registrados</td></tr></tbody>
     </table></div>
     <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:16px;align-items:center">
-      <span style="font-size:12px;color:var(--gray)">Registros: <b id="ingCount">10</b></span>
-      <span style="font-size:14px;font-weight:800;color:var(--success)">Total cobrado: <span id="ingTotal">$1,871,000.00</span></span>
+      <span style="font-size:12px;color:var(--gray)">Registros: <b id="ingCount">0</b></span>
+      <span style="font-size:14px;font-weight:800;color:var(--success)">Total cobrado: <span id="ingTotal">$0.00</span></span>
     </div>
   </div>
 </div>
@@ -356,7 +341,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
       <div class="form-group"><label>Período</label><input type="month" id="fij_periodo"></div>
       <div class="form-group"><label>Frecuencia</label><select id="fij_frecuencia"><option value="">—</option><option value="Mensual">Mensual</option><option value="Bimestral">Bimestral</option><option value="Trimestral">Trimestral</option><option value="Semestral">Semestral</option><option value="Anual">Anual</option><option value="Único">Único / Eventual</option></select></div>
       <div class="form-group"><label>Próx. vencimiento</label><input type="date" id="fij_proximoPago" title="Fecha del siguiente pago esperado"></div>
-      <div class="form-group wide"><label>Ingreso asociado</label><select id="fij_ingresoRef" onchange=""><option value="">— Sin asociar —</option><option value="ING-001">ING-001 · Eslabón (May 2025)</option><option value="ING-002">ING-002 · Cliente (Jun 2025)</option><option value="ING-003">ING-003 · Dicipa (Jul 2025)</option><option value="ING-004">ING-004 · Biosidt (Jul 2025)</option><option value="ING-005">ING-005 · ESSA (Ago 2025)</option><option value="ING-006">ING-006 · Cliente (Ago 2025)</option><option value="ING-007">ING-007 · L4BC (Ago 2025)</option><option value="ING-008">ING-008 · L4BC (Sep 2025)</option><option value="ING-009">ING-009 · Nocaas (Sep 2025)</option><option value="ING-010">ING-010 · Eslabón (Sep 2025)</option></select></div>
+      <div class="form-group wide"><label>Ingreso asociado</label><select id="fij_ingresoRef" onchange=""><option value="">— Sin asociar —</option></select></div>
       <div class="form-group wide"><label>Notas</label><input type="text" id="fij_notas" placeholder="Observaciones"></div>
     </div>
     <div style="display:flex;gap:10px">
@@ -368,7 +353,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="section-header">
       <div class="section-title">Historial de Pagos Fijos</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <select id="fij_fp" onchange="renderFijos()" class="filter-select"><option value="">Todos los períodos</option><option value="2026-05">May 2026</option><option value="2026-04">Abr 2026</option><option value="2026-03">Mar 2026</option><option value="2026-02">Feb 2026</option><option value="2026-01">Ene 2026</option><option value="2025-12">Dic 2025</option><option value="2025-11">Nov 2025</option><option value="2025-10">Oct 2025</option><option value="2025-09">Sep 2025</option><option value="2025-08">Ago 2025</option><option value="2025-07">Jul 2025</option><option value="2025-06">Jun 2025</option><option value="2025-05">May 2025</option></select>
+        <select id="fij_fp" onchange="renderFijos()" class="filter-select"><option value="">Todos los períodos</option></select>
         <select id="fij_fc" onchange="renderFijos()" class="filter-select"><option value="">Todas las categorías</option><option>Honorarios</option><option>Fiscal / Impuestos</option><option>Servicios digitales</option><option>Arrendamiento</option><option>Suscripciones</option><option>Legal</option><option>Otro</option></select>
       </div>
     </div>
@@ -381,107 +366,11 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Fecha</th><th>Proveedor</th><th>Categoría</th><th>Frecuencia</th><th>Próx. Pago</th><th>Ref. Ingreso</th><th>Período</th><th>Estatus</th><th style="text-align:right">Monto</th><th></th></tr></thead>
-      <tbody id="fijosBody"><tr><td>18/05/2026</td><td>Microsfot 365</td><td>Suscripciones</td>
-        <td><span class="freq-badge freq-anual">Anual</span></td>
-        <td style="color:var(--gray)">18/05/2027</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>May 2026</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$5,300.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','mob03zjmdu33f')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','mob03zjmdu33f')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','mob03zjmdu33f')">🗑</button></td></tr><tr><td>05/04/2026</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--gray)">05/05/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Abr 2026</td><td><span class="badge badge-pendiente">Pendiente</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc07')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc07')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc07')">🗑</button></td></tr><tr><td>05/03/2026</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/04/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Mar 2026</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc06')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc06')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc06')">🗑</button></td></tr><tr><td>05/02/2026</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/03/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Feb 2026</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc05')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc05')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc05')">🗑</button></td></tr><tr><td>05/01/2026</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/02/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ene 2026</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc04')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc04')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc04')">🗑</button></td></tr><tr><td>05/12/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/01/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Dic 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc03')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc03')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc03')">🗑</button></td></tr><tr><td>05/11/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/12/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Nov 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc02')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc02')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc02')">🗑</button></td></tr><tr><td>05/10/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/11/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Oct 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','fc01')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','fc01')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','fc01')">🗑</button></td></tr><tr><td>05/09/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 06/10/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','f011')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','f011')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','f011')">🗑</button></td></tr><tr><td>01/09/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 15/05/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$840.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','e008')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','e008')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','e008')">🗑</button></td></tr><tr><td>05/08/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/09/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','f009')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','f009')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','f009')">🗑</button></td></tr><tr><td>01/08/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 17/10/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$308.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','e007')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','e007')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','e007')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 05/08/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jul 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','f005')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','f005')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','f005')">🗑</button></td></tr><tr><td>05/06/2025</td><td>Contador</td><td>Honorarios</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 04/07/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jun 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$3,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','f004')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','f004')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','f004')">🗑</button></td></tr><tr><td>01/05/2025</td><td>Dominio web</td><td>Otro</td>
-        <td><span class="freq-badge freq-anual">Anual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 08/04/2026</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>May 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$1,014.77</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','e001')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','e001')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','e001')">🗑</button></td></tr><tr><td>01/05/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span class="freq-badge freq-mensual">Mensual</span></td>
-        <td style="color:var(--danger);font-weight:700">⚠️ 17/04/2025</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>May 2025</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$54,956.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('fijos','e002')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Eventuales" onclick="reclassify('fijos','e002')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('fijos','e002')">🗑</button></td></tr></tbody>
+      <tbody id="fijosBody"><tr><td colspan="8" class="empty-table"><div style="font-size:36px;margin-bottom:8px">🔒</div>Sin pagos fijos registrados</td></tr></tbody>
     </table></div>
     <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:16px;align-items:center">
-      <span style="font-size:12px;color:var(--gray)">Registros: <b id="fijCount">16</b></span>
-      <span style="font-size:14px;font-weight:800;color:var(--danger)">Total pagado: <span id="fijTotal">$92,418.77</span></span>
+      <span style="font-size:12px;color:var(--gray)">Registros: <b id="fijCount">0</b></span>
+      <span style="font-size:14px;font-weight:800;color:var(--danger)">Total pagado: <span id="fijTotal">$0.00</span></span>
     </div>
   </div>
 </div>
@@ -498,7 +387,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
       <div class="form-group"><label>Forma de pago</label><select id="eve_forma"><option value="">—</option><option>Transferencia</option><option>Efectivo</option><option>Tarjeta</option></select></div>
       <div class="form-group"><label>Estatus</label><select id="eve_estatus"><option value="Pagado">Pagado</option><option value="Pendiente">Pendiente</option></select></div>
       <div class="form-group"><label>Período</label><input type="month" id="eve_periodo"></div>
-      <div class="form-group wide"><label>Ingreso asociado <span style="font-size:10px;color:var(--teal)">¿De qué ingreso viene este gasto?</span></label><select id="eve_ingresoRef"><option value="">— Sin asociar —</option><option value="ING-001">ING-001 · Eslabón (May 2025)</option><option value="ING-002">ING-002 · Cliente (Jun 2025)</option><option value="ING-003">ING-003 · Dicipa (Jul 2025)</option><option value="ING-004">ING-004 · Biosidt (Jul 2025)</option><option value="ING-005">ING-005 · ESSA (Ago 2025)</option><option value="ING-006">ING-006 · Cliente (Ago 2025)</option><option value="ING-007">ING-007 · L4BC (Ago 2025)</option><option value="ING-008">ING-008 · L4BC (Sep 2025)</option><option value="ING-009">ING-009 · Nocaas (Sep 2025)</option><option value="ING-010">ING-010 · Eslabón (Sep 2025)</option></select></div>
+      <div class="form-group wide"><label>Ingreso asociado <span style="font-size:10px;color:var(--teal)">¿De qué ingreso viene este gasto?</span></label><select id="eve_ingresoRef"><option value="">— Sin asociar —</option></select></div>
       <div class="form-group wide"><label>Notas</label><input type="text" id="eve_notas" placeholder="Observaciones"></div>
     </div>
     <div style="display:flex;gap:10px">
@@ -510,7 +399,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="section-header">
       <div class="section-title">Historial de Pagos Eventuales</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <select id="eve_fp" onchange="renderEventuales()" class="filter-select"><option value="">Todos los períodos</option><option value="2026-05">May 2026</option><option value="2026-04">Abr 2026</option><option value="2026-03">Mar 2026</option><option value="2026-02">Feb 2026</option><option value="2026-01">Ene 2026</option><option value="2025-12">Dic 2025</option><option value="2025-11">Nov 2025</option><option value="2025-10">Oct 2025</option><option value="2025-09">Sep 2025</option><option value="2025-08">Ago 2025</option><option value="2025-07">Jul 2025</option><option value="2025-06">Jun 2025</option><option value="2025-05">May 2025</option></select>
+        <select id="eve_fp" onchange="renderEventuales()" class="filter-select"><option value="">Todos los períodos</option></select>
         <select id="eve_fc" onchange="renderEventuales()" class="filter-select"><option value="">Todas las categorías</option><option>Fiscal / Impuestos</option><option>Marketing</option><option>Capacitación</option><option>Viáticos</option><option>Materiales</option><option>Tecnología</option><option>Consultoría externa</option><option>Eventos</option><option>Otro</option></select>
       </div>
     </div>
@@ -522,115 +411,11 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Fecha</th><th>Proveedor</th><th>Categoría</th><th>Ref. Ingreso</th><th>Período</th><th>Forma</th><th>Estatus</th><th style="text-align:right">Monto</th><th></th></tr></thead>
-      <tbody id="eventualesBody"><tr><td>01/09/2025</td><td>Adriana</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$2,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f012')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f012')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f012')">🗑</button></td></tr><tr><td>01/09/2025</td><td>Alanis</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$2,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f013')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f013')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f013')">🗑</button></td></tr><tr><td>01/09/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$840.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e008')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e008')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e008')">🗑</button></td></tr><tr><td>01/09/2025</td><td>Adriana</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$2,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f012')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f012')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f012')">🗑</button></td></tr><tr><td>01/09/2025</td><td>Alanis</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Sep 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$2,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f013')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f013')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f013')">🗑</button></td></tr><tr><td>01/08/2025</td><td>Gastos contabilidad</td><td>Honorarios</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$39,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e006')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e006')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e006')">🗑</button></td></tr><tr><td>01/08/2025</td><td>SGC Dicipa</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$101,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f010')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f010')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f010')">🗑</button></td></tr><tr><td>01/08/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$308.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e007')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e007')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e007')">🗑</button></td></tr><tr><td>01/08/2025</td><td>SGC Dicipa</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Ago 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$101,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f010')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f010')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f010')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Gastos contabilidad</td><td>Honorarios</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$7,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e005')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e005')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e005')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Reyna</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$9,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f006')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f006')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f006')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-003')">ING-003</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$232,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f007')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f007')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f007')">🗑</button></td></tr><tr><td>01/07/2025</td><td>SGC</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-003')">ING-003</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$304,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f008')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f008')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f008')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Reyna</td><td>Otro</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$9,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f006')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f006')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f006')">🗑</button></td></tr><tr><td>01/07/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-003')">ING-003</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$232,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f007')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f007')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f007')">🗑</button></td></tr><tr><td>01/07/2025</td><td>SGC</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-003')">ING-003</span></td>
-        <td>Jul 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$304,500.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f008')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f008')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f008')">🗑</button></td></tr><tr><td>01/06/2025</td><td>ESSA - viáticos facturables</td><td>Viáticos</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jun 2025</td><td>Efectivo</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$7,213.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e003')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e003')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e003')">🗑</button></td></tr><tr><td>01/06/2025</td><td>ESSA - gastos no facturables</td><td>Viáticos</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>Jun 2025</td><td>Efectivo</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$2,296.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e004')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e004')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e004')">🗑</button></td></tr><tr><td>01/06/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-002')">ING-002</span></td>
-        <td>Jun 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$116,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f003')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f003')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f003')">🗑</button></td></tr><tr><td>01/06/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-002')">ING-002</span></td>
-        <td>Jun 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$116,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f003')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f003')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f003')">🗑</button></td></tr><tr><td>01/05/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-001')">ING-001</span></td>
-        <td>May 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$116,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f001')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f001')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f001')">🗑</button></td></tr><tr><td>01/05/2025</td><td>SGC</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-001')">ING-001</span></td>
-        <td>May 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$220,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f002')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f002')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f002')">🗑</button></td></tr><tr><td>01/05/2025</td><td>Dominio web</td><td>Tecnología</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>May 2025</td><td>Tarjeta</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$1,014.77</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e001')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e001')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e001')">🗑</button></td></tr><tr><td>01/05/2025</td><td>SAT</td><td>Fiscal / Impuestos</td>
-        <td><span style="color:var(--gray);font-size:11px">—</span></td>
-        <td>May 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$54,956.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','e002')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','e002')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','e002')">🗑</button></td></tr><tr><td>01/05/2025</td><td>Dogan</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-001')">ING-001</span></td>
-        <td>May 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$116,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f001')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f001')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f001')">🗑</button></td></tr><tr><td>01/05/2025</td><td>SGC</td><td>Otro</td>
-        <td><span class="ref-badge" title="Ingreso asociado" onclick="filterByIngreso('ING-001')">ING-001</span></td>
-        <td>May 2025</td><td>Transferencia</td><td><span class="badge badge-pagado">Pagado</span></td>
-        <td class="amount-negative" style="text-align:right">$220,000.00</td>
-        <td><button class="btn btn-sm btn-secondary" onclick="editRecord('eventuales','f002')">✏️</button> <button class="btn btn-sm btn-reclass tooltip" data-tip="Mover a Fijos" onclick="reclassify('eventuales','f002')">↔</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('eventuales','f002')">🗑</button></td></tr></tbody>
+      <tbody id="eventualesBody"><tr><td colspan="8" class="empty-table"><div style="font-size:36px;margin-bottom:8px">🔀</div>Sin pagos eventuales registrados</td></tr></tbody>
     </table></div>
     <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:16px;align-items:center">
-      <span style="font-size:12px;color:var(--gray)">Registros: <b id="eveCount">26</b></span>
-      <span style="font-size:14px;font-weight:800;color:var(--danger)">Total pagado: <span id="eveTotal">$2,320,127.77</span></span>
+      <span style="font-size:12px;color:var(--gray)">Registros: <b id="eveCount">0</b></span>
+      <span style="font-size:14px;font-weight:800;color:var(--danger)">Total pagado: <span id="eveTotal">$0.00</span></span>
     </div>
   </div>
 </div>
@@ -677,7 +462,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="section-header">
       <div class="section-title">Historial de Anticipos</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <select id="ant_fp" onchange="renderAnticipos()" class="filter-select"><option value="">Todos los períodos</option><option value="2026-05">May 2026</option><option value="2026-04">Abr 2026</option><option value="2026-03">Mar 2026</option><option value="2026-02">Feb 2026</option><option value="2026-01">Ene 2026</option><option value="2025-12">Dic 2025</option><option value="2025-11">Nov 2025</option><option value="2025-10">Oct 2025</option><option value="2025-09">Sep 2025</option><option value="2025-08">Ago 2025</option><option value="2025-07">Jul 2025</option><option value="2025-06">Jun 2025</option><option value="2025-05">May 2025</option></select>
+        <select id="ant_fp" onchange="renderAnticipos()" class="filter-select"><option value="">Todos los períodos</option></select>
         <select id="ant_fq" onchange="renderAnticipos()" class="filter-select">
           <option value="">Todos los socios</option>
           <option value="mizra">Solo Mizra</option>
@@ -688,40 +473,10 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
     <div class="table-wrap"><table>
       <thead><tr><th>Fecha</th><th>Concepto</th><th>Quién</th><th>Período</th><th>Forma</th><th style="text-align:right">Monto Mizra</th><th style="text-align:right">Monto Gus</th><th style="text-align:right">Total</th><th></th></tr></thead>
-      <tbody id="anticiposBody"><tr>
-      <td>01/09/2025</td><td>Ame para Ir</td><td><span class="badge badge-mizra">👤 Solo Mizra</span></td>
-      <td>Sep 2025</td><td>Transferencia</td>
-      <td style="text-align:right;color:#6c3483;font-weight:700">
-        $40,000.00
-      </td>
-      <td style="text-align:right;color:var(--gray);font-weight:700">
-        —
-      </td>
-      <td style="text-align:right;font-weight:700;color:var(--navy)">$40,000.00</td>
-      <td><button class="btn btn-sm btn-secondary" onclick="editRecord('anticipos','a002')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('anticipos','a002')">🗑</button></td></tr><tr>
-      <td>01/07/2025</td><td>Seguro Mizra</td><td><span class="badge badge-mizra">👤 Solo Mizra</span></td>
-      <td>Jul 2025</td><td>Transferencia</td>
-      <td style="text-align:right;color:#6c3483;font-weight:700">
-        $10,263.00
-      </td>
-      <td style="text-align:right;color:var(--gray);font-weight:700">
-        —
-      </td>
-      <td style="text-align:right;font-weight:700;color:var(--navy)">$10,263.00</td>
-      <td><button class="btn btn-sm btn-secondary" onclick="editRecord('anticipos','a001')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('anticipos','a001')">🗑</button></td></tr><tr>
-      <td>01/05/2025</td><td>Aportación de capital Gus</td><td><span class="badge badge-gus">👤 Solo Gus</span></td>
-      <td>May 2025</td><td>Transferencia</td>
-      <td style="text-align:right;color:var(--gray);font-weight:700">
-        —
-      </td>
-      <td style="text-align:right;color:var(--success);font-weight:700">
-        <span title="Aportación/Reembolso">+</span>$9,500.00
-      </td>
-      <td style="text-align:right;font-weight:700;color:var(--navy)">$9,500.00</td>
-      <td><button class="btn btn-sm btn-secondary" onclick="editRecord('anticipos','a003')">✏️</button> <button class="btn btn-sm btn-danger" onclick="deleteRecord('anticipos','a003')">🗑</button></td></tr></tbody>
+      <tbody id="anticiposBody"><tr><td colspan="9" class="empty-table"><div style="font-size:36px;margin-bottom:8px">💸</div>Sin anticipos registrados</td></tr></tbody>
     </table></div>
     <div style="display:flex;justify-content:flex-end;margin-top:12px;gap:20px;align-items:center;flex-wrap:wrap">
-      <span style="font-size:13px;font-weight:700;color:#6c3483">Total Mizra retirado: <span id="antTotalMiz">$50,263.00</span></span>
+      <span style="font-size:13px;font-weight:700;color:#6c3483">Total Mizra retirado: <span id="antTotalMiz">$0.00</span></span>
       <span style="font-size:13px;font-weight:700;color:#1a5276">Total Gus retirado: <span id="antTotalGus">$0.00</span></span>
     </div>
   </div>
@@ -733,7 +488,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div style="font-size:20px;font-weight:800;color:var(--navy)">Estado de Resultados · P&amp;L</div>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
       <select id="pl_view" onchange="renderPL()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="month">Por mes</option><option value="year">Año completo</option><option value="all">Historial completo</option></select>
-      <select id="pl_year" onchange="renderPL()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option><option value="2025">2025</option></select>
+      <select id="pl_year" onchange="renderPL()" class="filter-select" style="font-size:13px;padding:8px 12px"><option value="2026">2026</option></select>
       <select id="pl_month" onchange="renderPL()" class="filter-select" style="font-size:13px;padding:8px 12px">
         <option value="01">Enero</option><option value="02">Febrero</option><option value="03">Marzo</option>
         <option value="04">Abril</option><option value="05">Mayo</option><option value="06">Junio</option>
@@ -746,7 +501,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     <div class="pl-profit-box">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
         <div>
-          <div class="big-label">Utilidad Neta · Abr 2026</div>
+          <div class="big-label">Utilidad Neta · May 2026</div>
           <div class="big-num">$0.00</div>
           <div style="font-size:12px;opacity:.75;margin-top:4px">Margen operativo: 0%</div>
         </div>
@@ -811,20 +566,20 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
       <div class="acum-avatar miz" style="margin:0 auto 8px">M</div>
       <div style="font-weight:800;color:var(--navy);font-size:14px;margin-bottom:10px">Mizra — Acumulado</div>
       <div style="font-size:11px;color:var(--gray);margin-bottom:2px">Utilidad 50%</div>
-      <div style="font-weight:700;color:var(--teal);margin-bottom:6px">$-270,773.27</div>
+      <div style="font-weight:700;color:var(--teal);margin-bottom:6px">$0.00</div>
       <div style="font-size:11px;color:var(--gray);margin-bottom:2px">Anticipos retirados</div>
-      <div style="font-weight:700;color:var(--danger);margin-bottom:10px">-$50,263.00</div>
-      <div style="border-top:2px solid #c39bd3;padding-top:10px;font-size:18px;font-weight:800;color:var(--danger)">💰 $-321,036.27</div>
+      <div style="font-weight:700;color:var(--danger);margin-bottom:10px">-$0.00</div>
+      <div style="border-top:2px solid #c39bd3;padding-top:10px;font-size:18px;font-weight:800;color:#6c3483">💰 $0.00</div>
       <div style="font-size:11px;color:var(--gray);margin-top:4px">Saldo total disponible</div>
     </div>
     <div style="text-align:center;padding:16px">
       <div class="acum-avatar gus" style="margin:0 auto 8px">G</div>
       <div style="font-weight:800;color:var(--navy);font-size:14px;margin-bottom:10px">Gus — Acumulado</div>
       <div style="font-size:11px;color:var(--gray);margin-bottom:2px">Utilidad 50%</div>
-      <div style="font-weight:700;color:var(--teal);margin-bottom:6px">$-270,773.27</div>
+      <div style="font-weight:700;color:var(--teal);margin-bottom:6px">$0.00</div>
       <div style="font-size:11px;color:var(--gray);margin-bottom:2px">Anticipos retirados</div>
-      <div style="font-weight:700;color:var(--danger);margin-bottom:10px">+$9,500.00</div>
-      <div style="border-top:2px solid #7fb3d3;padding-top:10px;font-size:18px;font-weight:800;color:var(--danger)">💰 $-261,273.27</div>
+      <div style="font-weight:700;color:var(--danger);margin-bottom:10px">-$0.00</div>
+      <div style="border-top:2px solid #7fb3d3;padding-top:10px;font-size:18px;font-weight:800;color:#1a5276">💰 $0.00</div>
       <div style="font-size:11px;color:var(--gray);margin-top:4px">Saldo total disponible</div>
     </div></div>
       </div>
@@ -839,14 +594,14 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
   <div class="modal">
     <div class="modal-title" id="editModalTitle">✏️ Editar Pago</div>
     <div id="editModalBody"><div class="form-grid">
-    <div class="form-group"><label>Fecha</label><input type="date" id="e_fecha" value="2025-05-01"></div><div class="form-group"><label>Proveedor</label><input type="text" id="e_proveedor" value="Dominio web"></div>
-    <div class="form-group"><label>Categoría</label><select id="e_categoria"><option>Honorarios</option><option>Fiscal / Impuestos</option><option>Servicios digitales</option><option>Arrendamiento</option><option>Suscripciones</option><option>Legal</option><option selected="">Otro</option></select></div><div class="form-group"><label>Monto</label><input type="number" id="e_monto" value="1014.77" min="0" step="0.01"></div><div class="form-group"><label>Frecuencia</label><select id="e_frecuencia"><option>Mensual</option><option>Bimestral</option><option>Trimestral</option><option>Semestral</option><option selected="">Anual</option><option>Único</option></select></div>
-      <div class="form-group"><label>Próx. Pago</label><input type="date" id="e_proximoPago" value="2026-04-08"></div>
-      <div class="form-group wide"><label>Ingreso asociado</label><select id="e_ingresoRef"><option value="">— Sin asociar —</option><option value="ING-001">ING-001 · Eslabón (May 2025)</option><option value="ING-002">ING-002 · Cliente (Jun 2025)</option><option value="ING-003">ING-003 · Dicipa (Jul 2025)</option><option value="ING-004">ING-004 · Biosidt (Jul 2025)</option><option value="ING-005">ING-005 · ESSA (Ago 2025)</option><option value="ING-006">ING-006 · Cliente (Ago 2025)</option><option value="ING-007">ING-007 · L4BC (Ago 2025)</option><option value="ING-008">ING-008 · L4BC (Sep 2025)</option><option value="ING-009">ING-009 · Nocaas (Sep 2025)</option><option value="ING-010">ING-010 · Eslabón (Sep 2025)</option></select></div><div class="form-group"><label>Forma</label><select id="e_forma">
+    <div class="form-group"><label>Fecha</label><input type="date" id="e_fecha" value="2026-05-02"></div><div class="form-group"><label>Proveedor</label><input type="text" id="e_proveedor" value="BBVA"></div>
+    <div class="form-group"><label>Categoría</label><select id="e_categoria"><option>Honorarios</option><option selected="">Fiscal / Impuestos</option><option>Servicios digitales</option><option>Arrendamiento</option><option>Suscripciones</option><option>Legal</option><option>Otro</option></select></div><div class="form-group"><label>Monto</label><input type="number" id="e_monto" value="29" min="0" step="0.01"></div><div class="form-group"><label>Frecuencia</label><select id="e_frecuencia"><option selected="">Mensual</option><option>Bimestral</option><option>Trimestral</option><option>Semestral</option><option>Anual</option><option>Único</option></select></div>
+      <div class="form-group"><label>Próx. Pago</label><input type="date" id="e_proximoPago" value="2025-06-05"></div>
+      <div class="form-group wide"><label>Ingreso asociado</label><select id="e_ingresoRef"><option value="">— Sin asociar —</option><option value="ING-001" selected="">ING-001 · Eslabón Clinico (Abr 2025)</option><option value="ING-002">ING-002 · Eslabón Clinico (Jun 2025)</option><option value="ING-003">ING-003 · Dicipa (Jul 2025)</option><option value="ING-004">ING-004 · Biosidt (Jul 2025)</option><option value="ING-005">ING-005 · ESSA (Ago 2025)</option><option value="ING-006">ING-006 · Cliente (Ago 2025)</option><option value="ING-007">ING-007 · L4BC (Ago 2025)</option><option value="ING-008">ING-008 · L4BC (Sep 2025)</option><option value="ING-009">ING-009 · Nocaas (Sep 2025)</option><option value="ING-010">ING-010 · Eslabón (Sep 2025)</option><option value="ING-011">ING-011 · Gustavo Torres (Mar 2025)</option><option value="ING-012">ING-012 · Mizraim Alcázar (Mar 2025)</option></select></div><div class="form-group"><label>Forma</label><select id="e_forma">
     <option value="">—</option>
-    <option>Transferencia</option><option>Efectivo</option><option selected="">Tarjeta</option><option>Cheque</option><option>Débito automático</option>
+    <option>Transferencia</option><option>Efectivo</option><option>Tarjeta</option><option>Cheque</option><option selected="">Débito automático</option>
   </select></div><div class="form-group"><label>Estatus</label><select id="e_estatus"><option selected="">Pagado</option><option>Pendiente</option></select></div><div class="form-group"><label>Período</label><input type="month" id="e_periodo" value="2025-05"></div>
-  <div class="form-group wide"><label>Notas</label><input type="text" id="e_notas" value="Registro dominio"></div>
+  <div class="form-group wide"><label>Notas</label><input type="text" id="e_notas" value="Comisiones por uso de banca elecrtónica"></div>
   </div></div>
     <div class="modal-footer">
       <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
@@ -854,7 +609,59 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
   </div>
 </div>
-<div class="notify" id="notify"></div>
+<div class="notify error" id="notify">🗑 Eliminado</div>
+
+<!-- ══ MODAL RECLASIFICACIÓN ══ -->
+<div id="rclModal" class="modal-overlay">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">↔ Reclasificar gasto</div>
+    <div id="rclSource" style="font-size:12px;color:var(--gray);margin-bottom:20px;padding:8px 12px;background:var(--light-gray);border-radius:8px"></div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gray);margin-bottom:10px">¿Dónde mover este registro?</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <button id="rclBtnFijo" class="btn btn-secondary" style="justify-content:flex-start;gap:10px;padding:12px 16px"
+        onclick="document.getElementById('rclAntFields').style.display='none';document.getElementById('rclConfirmBtn').textContent='↔ Mover a Fijos';document.getElementById('rclConfirmBtn').dataset.dest='fijos'">
+        🔒 <span><strong>Pago Fijo</strong><br><span style="font-size:11px;font-weight:400;color:var(--gray)">Recurrente (mensual, trimestral, etc.)</span></span>
+      </button>
+      <button id="rclBtnEventual" class="btn btn-secondary" style="justify-content:flex-start;gap:10px;padding:12px 16px"
+        onclick="document.getElementById('rclAntFields').style.display='none';document.getElementById('rclConfirmBtn').textContent='↔ Mover a Eventuales';document.getElementById('rclConfirmBtn').dataset.dest='eventuales'">
+        🔀 <span><strong>Pago Eventual</strong><br><span style="font-size:11px;font-weight:400;color:var(--gray)">Gasto único o irregular</span></span>
+      </button>
+      <button class="btn btn-secondary" style="justify-content:flex-start;gap:10px;padding:12px 16px;border-color:#8e44ad;color:#6c3483"
+        onclick="rclShowAnticipo()">
+        💸 <span><strong>Anticipo de Dividendos</strong><br><span style="font-size:11px;font-weight:400;color:var(--gray)">Retiro personal de Mizra y/o Gus</span></span>
+      </button>
+    </div>
+    <div id="rclAntFields" style="display:none;background:#f4eefa;border-radius:10px;padding:16px;margin-bottom:18px;border:1.5px solid #c39bd3">
+      <div style="font-size:11px;font-weight:700;color:#6c3483;margin-bottom:12px;text-transform:uppercase;letter-spacing:.8px">💸 Configurar anticipo</div>
+      <div class="form-grid" style="grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-group" style="grid-column:span 2">
+          <label>Concepto</label>
+          <input type="text" id="rcl_concepto" placeholder="Descripción del retiro">
+        </div>
+        <div class="form-group" style="grid-column:span 2">
+          <label>Para quién</label>
+          <select id="rcl_quien" onchange="rclUpdateQuien()">
+            <option value="mizra">Solo Mizra</option>
+            <option value="gus">Solo Gus</option>
+            <option value="ambas">Ambos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Monto Mizra</label>
+          <input type="number" id="rcl_montoMizra" min="0" step="0.01" placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label>Monto Gus</label>
+          <input type="number" id="rcl_montoGus" min="0" step="0.01" placeholder="0.00">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeRclModal()">Cancelar</button>
+      <button id="rclConfirmBtn" class="btn btn-primary" data-dest="" onclick="rclConfirm()">Selecciona un destino</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ══ LOGO ══
@@ -1176,9 +983,12 @@ function badge(e){const cls=(e||'').toLowerCase().replace(' ','');return `<span 
 function badgeQuien(q){const labels={mizra:'👤 Solo Mizra',gus:'👤 Solo Gus',ambas:'👥 Ambos'};return `<span class="badge badge-${q||'ambas'}">${labels[q]||q}</span>`;}
 function actionBtns(type,id){
   const reclass = (type==='fijos'||type==='eventuales')
-    ? ` <button class="btn btn-sm btn-reclass tooltip" data-tip="${type==='fijos'?'Mover a Eventuales':'Mover a Fijos'}" onclick="reclassify('${type}','${id}')">↔</button>` : '';
+    ? ` <button class="btn btn-sm btn-reclass tooltip" data-tip="Reclasificar (Fijo / Eventual / Anticipo)" onclick="openReclassModal('${type}','${id}')">↔</button>` : '';
   const replicate = type==='fijos'
-    ? ` <button class="btn btn-sm btn-replicate tooltip" data-tip="Replicar al mes siguiente" onclick="replicateFijo('${id}')">⟳</button>` : '';
+    ? ` <button class="btn btn-sm btn-replicate tooltip" data-tip="Duplicar al mes siguiente" onclick="replicateFijo('${id}')">⟳</button>`
+    : type==='eventuales'
+    ? ` <button class="btn btn-sm btn-replicate tooltip" data-tip="Duplicar al mes siguiente" onclick="replicateEventual('${id}')">⟳</button>`
+    : '';
   return `<button class="btn btn-sm btn-secondary" onclick="editRecord('${type}','${id}')">✏️</button>${reclass}${replicate} <button class="btn btn-sm btn-danger" onclick="deleteRecord('${type}','${id}')">🗑</button>`;
 }
 function emptyRow(cols,icon,msg){return `<tr><td colspan="${cols}" class="empty-table"><div style="font-size:36px;margin-bottom:8px">${icon}</div>${msg}</td></tr>`;}
@@ -1329,27 +1139,107 @@ function replicateFijo(id){
   notify(`⟳ Replicado: ${r.proveedor} · ${fmtP(nextPeriodo)} — estatus: Pendiente`);
 }
 
-function reclassify(type,id){
-  const src = type==='fijos' ? data.fijos : data.eventuales;
-  const dst = type==='fijos' ? data.eventuales : data.fijos;
-  const idx = src.findIndex(r=>r.id===id);
-  if(idx===-1) return;
-  const rec = {...src[idx]};
-  // Normalize fields
-  if(type==='fijos'){
-    // moving fijo → eventual: keep all fields, update categoria if needed
-    if(!['Fiscal / Impuestos','Marketing','Capacitación','Viáticos','Materiales','Tecnología','Consultoría externa','Eventos','Otro'].includes(rec.categoria)) rec.categoria='Otro';
-  } else {
-    // moving eventual → fijo: keep all fields, update categoria if needed
-    if(!['Honorarios','Fiscal / Impuestos','Servicios digitales','Arrendamiento','Suscripciones','Legal','Otro'].includes(rec.categoria)) rec.categoria='Otro';
+// ── Replicate Eventual ──
+function replicateEventual(id){
+  const r = data.eventuales.find(x=>x.id===id);
+  if(!r) return;
+  const base = r.periodo || r.fecha?.slice(0,7) || '';
+  if(!base){ notify('❌ El registro no tiene período definido','error'); return; }
+  const [y, m] = base.split('-').map(Number);
+  const nextDate = new Date(y, m, 1);
+  const nextY = nextDate.getFullYear();
+  const nextM = String(nextDate.getMonth()+1).padStart(2,'0');
+  const nextPeriodo = `${nextY}-${nextM}`;
+  const nextFecha   = `${nextY}-${nextM}-${String(r.fecha?.slice(8,10)||'01').padStart(2,'0')}`;
+  const exists = data.eventuales.some(x =>
+    x.proveedor === r.proveedor && x.periodo === nextPeriodo && x.id !== r.id
+  );
+  if(exists){
+    if(!confirm(`Ya existe un registro de "${r.proveedor}" en ${fmtP(nextPeriodo)}. ¿Crear otro igual?`)) return;
   }
-  dst.push(rec);
-  src.splice(idx,1);
-  saveData();
-  if(type==='fijos'){renderFijos();renderEventuales();}
-  else{renderEventuales();renderFijos();}
-  const dest=type==='fijos'?'Eventuales':'Fijos';
-  notify(`↔ Movido a Pagos ${dest}`);
+  const copy = { ...r, id: genId(), fecha: nextFecha, periodo: nextPeriodo, estatus: 'Pendiente' };
+  data.eventuales.push(copy);
+  saveData(); populateFilters(); renderEventuales();
+  notify(`⟳ Duplicado: ${r.proveedor} · ${fmtP(nextPeriodo)} — estatus: Pendiente`);
+}
+
+// ── Reclassify (3-way) ──
+let _rclType=null, _rclId=null;
+function openReclassModal(type, id){
+  _rclType=type; _rclId=id;
+  const r = data[type].find(x=>x.id===id); if(!r) return;
+  const label = type==='fijos'?'Pago Fijo':'Pago Eventual';
+  document.getElementById('rclSource').textContent = `${label}: ${r.proveedor||r.concepto||''} · ${fmtP(r.periodo)}`;
+  // Show/hide destination buttons based on source
+  document.getElementById('rclBtnFijo').style.display    = type==='eventuales' ? '' : 'none';
+  document.getElementById('rclBtnEventual').style.display = type==='fijos'     ? '' : 'none';
+  // Reset anticipo fields
+  document.getElementById('rclAntFields').style.display='none';
+  document.getElementById('rcl_concepto').value = r.proveedor||r.concepto||'';
+  document.getElementById('rcl_montoMizra').value='';
+  document.getElementById('rcl_montoGus').value='';
+  document.getElementById('rcl_quien').value='mizra';
+  rclUpdateQuien();
+  document.getElementById('rclModal').classList.add('open');
+}
+function rclUpdateQuien(){
+  const q=document.getElementById('rcl_quien').value;
+  const mEl=document.getElementById('rcl_montoMizra');
+  const gEl=document.getElementById('rcl_montoGus');
+  if(q==='mizra'){ mEl.disabled=false; gEl.disabled=true; gEl.value=''; }
+  else if(q==='gus'){ mEl.disabled=true; mEl.value=''; gEl.disabled=false; }
+  else { mEl.disabled=false; gEl.disabled=false; }
+}
+function rclShowAnticipo(){
+  document.getElementById('rclAntFields').style.display='';
+  document.getElementById('rclConfirmBtn').textContent='↔ Convertir a Anticipo';
+  document.getElementById('rclConfirmBtn').dataset.dest='anticipos';
+}
+function rclConfirm(){
+  const dest = document.getElementById('rclConfirmBtn').dataset.dest;
+  const type = _rclType; const id = _rclId;
+  const src = data[type];
+  const idx = src.findIndex(r=>r.id===id);
+  if(idx===-1){ closeRclModal(); return; }
+  const rec = {...src[idx]};
+
+  if(dest==='fijos'){
+    if(!['Honorarios','Fiscal / Impuestos','Servicios digitales','Arrendamiento','Suscripciones','Legal','Otro'].includes(rec.categoria)) rec.categoria='Otro';
+    data.fijos.push(rec);
+    src.splice(idx,1);
+    saveData(); renderFijos(); renderEventuales();
+    notify('↔ Movido a Pagos Fijos');
+  } else if(dest==='eventuales'){
+    if(!['Fiscal / Impuestos','Marketing','Capacitación','Viáticos','Materiales','Tecnología','Consultoría externa','Eventos','Otro'].includes(rec.categoria)) rec.categoria='Otro';
+    data.eventuales.push(rec);
+    src.splice(idx,1);
+    saveData(); renderEventuales(); renderFijos();
+    notify('↔ Movido a Pagos Eventuales');
+  } else if(dest==='anticipos'){
+    const concepto = document.getElementById('rcl_concepto').value.trim()||rec.proveedor||'';
+    const q = document.getElementById('rcl_quien').value;
+    const mm = q==='gus'  ? 0 : parseFloat(document.getElementById('rcl_montoMizra').value)||0;
+    const mg = q==='mizra'? 0 : parseFloat(document.getElementById('rcl_montoGus').value)||0;
+    if(!concepto){ notify('Ingresa el concepto','error'); return; }
+    if(q==='mizra'&&mm<=0){ notify('Ingresa monto Mizra','error'); return; }
+    if(q==='gus'&&mg<=0){ notify('Ingresa monto Gus','error'); return; }
+    if(q==='ambas'&&mm<=0&&mg<=0){ notify('Ingresa al menos un monto','error'); return; }
+    data.anticipos.push({
+      id: genId(), fecha: rec.fecha, concepto,
+      quien: q, montoMizra: mm, montoGus: mg,
+      forma: rec.forma||'', periodo: rec.periodo||'', notas: rec.notas||''
+    });
+    src.splice(idx,1);
+    saveData();
+    if(type==='fijos') renderFijos(); else renderEventuales();
+    renderAnticipos();
+    notify('↔ Convertido a Anticipo de Dividendos');
+  }
+  closeRclModal();
+}
+function closeRclModal(){
+  document.getElementById('rclModal').classList.remove('open');
+  _rclType=null; _rclId=null;
 }
 
 function deleteRecord(type,id){
@@ -1449,6 +1339,7 @@ function saveEdit(){
 }
 function closeModal(){ document.getElementById('editModal').classList.remove('open'); eType=null; eId=null; }
 document.getElementById('editModal').addEventListener('click',e=>{ if(e.target.id==='editModal') closeModal(); });
+document.getElementById('rclModal').addEventListener('click',e=>{ if(e.target.id==='rclModal') closeRclModal(); });
 
 // ══ CALC HELPERS ══
 function calcPL(filterFn){
@@ -1728,11 +1619,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     <div style="font-size:18px;font-weight:800;color:#003049;margin-bottom:8px">🔑 Activar sincronización</div>
     <div style="font-size:13px;color:#737A80;margin-bottom:20px">Ingresa tu GitHub Personal Access Token. Se guardará solo en este navegador.</div>
     <label style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#737A80;display:block;margin-bottom:6px">Token</label>
-    <input id="tokenInput" type="password" placeholder="ghp_..." autocomplete="off"
-      style="width:100%;border:1.5px solid #dde2e8;border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Montserrat',sans-serif;outline:none;box-sizing:border-box;margin-bottom:16px"
-      onkeydown="if(event.key==='Enter') saveToken()">
-    <button onclick="saveToken()"
-      style="width:100%;background:linear-gradient(135deg,#003049,#2F8091);color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif">
+    <input id="tokenInput" type="password" placeholder="ghp_..." autocomplete="off" style="width:100%;border:1.5px solid #dde2e8;border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Montserrat',sans-serif;outline:none;box-sizing:border-box;margin-bottom:16px" onkeydown="if(event.key==='Enter') saveToken()">
+    <button onclick="saveToken()" style="width:100%;background:linear-gradient(135deg,#003049,#2F8091);color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif">
       Conectar ✅
     </button>
     <p style="font-size:11px;color:#b0b8c0;margin-top:10px;text-align:center">El token no se sube a GitHub — queda solo en tu navegador.</p>
