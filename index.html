@@ -968,7 +968,7 @@ async function loadData(){
     const r=await fetch(GH_API,{headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json'}});
     if(r.ok){
       const j=await r.json(); ghSha=j.sha;
-      const d=JSON.parse(atob(j.content.replace(/\n/g,'')));
+      const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(j.content.replace(/\n/g,'')),c=>c.charCodeAt(0))));
       if(!d.ingresos?.length&&!d.fijos?.length){
         data=JSON.parse(JSON.stringify(INITIAL_DATA)); await _ghSave();
       } else {
@@ -1004,7 +1004,7 @@ async function _ghSave(){
   const tok=getToken(); if(!tok) return;
   showSync('💾 Guardando...');
   try{
-    const body={message:`update ${new Date().toISOString()}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(data))))};
+    const body={message:`update ${new Date().toISOString()}`,content:btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(data))))};
     if(ghSha) body.sha=ghSha;
     const r=await fetch(GH_API,{method:'PUT',headers:{Authorization:`token ${tok}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(r.ok){ const j=await r.json(); ghSha=j.content.sha; showSync('✅ Guardado',2500); }
