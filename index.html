@@ -853,7 +853,7 @@ tbody td{padding:10px 14px;color:#2d3e4c;vertical-align:middle}
     </div>
   </div>
 </div>
-<div class="notify show " id="notify">⏳ Preparando archivo...</div>
+<div class="notify" id="notify"></div>
 
 <script>
 // ══ LOGO ══
@@ -1656,56 +1656,10 @@ function renderPL(){
 }
 
 // ══ EXPORT ══
-function exportJSON(){
-  const ts=new Date().toISOString().slice(0,16).replace('T',' ');
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`Procesia_Estado_${ts.replace(/[: ]/g,'-')}.json`;
-  a.click();
-  notify('💾 Estado guardado como JSON');
-}
 
-function importJSON(){
-  document.getElementById('jsonFileInput').click();
-}
 
-function loadJSONFile(event){
-  const file=event.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    try{
-      const imported=JSON.parse(e.target.result);
-      if(!imported.ingresos||!imported.fijos||!imported.eventuales||!imported.anticipos){
-        notify('❌ Archivo inválido — verifica que sea un respaldo de Procesia','error'); return;
-      }
-      if(!confirm(`¿Cargar estado del archivo "${file.name}"?\nSe reemplazarán todos los datos actuales.`)) return;
-      data=imported; saveData(); populateFilters();
-      renderDashboard();
-      notify(`✅ Estado cargado: ${file.name}`);
-    } catch(err){ notify('❌ Error al leer el archivo JSON','error'); }
-  };
-  reader.readAsText(file);
-  event.target.value='';
-}
 
-function downloadHTML(){
-  if(!confirm('Se descargará un HTML nuevo con todos tus datos actuales guardados adentro. ¿Continuar?')) return;
-  notify('⏳ Preparando archivo...','');
-  setTimeout(()=>{
-    const currentHTML=document.documentElement.outerHTML;
-    // Inject current data as INITIAL_DATA override
-    const dataScript=`<script>\n// Auto-saved data injection\nwindow.addEventListener('DOMContentLoaded',function(){\n  var d=${JSON.stringify(data)};\n  localStorage.setItem('procesia_v2',JSON.stringify(d));\n});<\/script>`;
-    const injected=currentHTML.replace('</head>', dataScript+'</head>');
-    const blob=new Blob([injected],{type:'text/html;charset=utf-8'});
-    const a=document.createElement('a');
-    const ts=new Date().toISOString().slice(0,10);
-    a.href=URL.createObjectURL(blob);
-    a.download=`Procesia_Finanzas_${ts}.html`;
-    a.click();
-    notify('✅ HTML descargado con datos actualizados');
-  },100);
-}
+
 
 function exportCSV(){
   const ts=new Date().toISOString().slice(0,10);
